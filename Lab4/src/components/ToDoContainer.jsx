@@ -1,31 +1,31 @@
-import { useState } from 'react';
-import Search from './Search';
-import Add from './Add';
-import Table from './Table';
-import useGetAllToDo from '../hooks/useGetAllToDo';
+import { useState } from 'react'
+import Search from './Search'
+import Add from './Add'
+import Table from './Table'
+import useGetAllToDo from '../hooks/useGetAllToDo'
 
 const ToDoContainer = () => {
-  const { data: todos, isLoading } = useGetAllToDo(); // Використання кастомного хука
-  const [newTodo, setNewTodo] = useState('');
-  const [search, setSearch] = useState('');
+  const { data: todos, isLoading } = useGetAllToDo() // Використання кастомного хука
+  const [newTodo, setNewTodo] = useState('')
+  const [search, setSearch] = useState('')
 
   const addTodo = () => {
-    if (newTodo.trim() === '') return;
-    const newId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 1;
-    setTodos([...todos, { id: newId, title: newTodo }]);
-    setNewTodo('');
-  };
+    if (newTodo.trim() === '') return
+    const newId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 1
+    setTodos([...todos, { id: newId, title: newTodo }])
+    setNewTodo('')
+  }
 
   const removeTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+    setTodos(todos.filter((todo) => todo.id !== id))
+  }
 
   const filteredTodos = todos.filter((todo) =>
     todo.title.toLowerCase().includes(search.toLowerCase())
-  );
+  )
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -34,7 +34,7 @@ const ToDoContainer = () => {
       <Add newTodo={newTodo} setNewTodo={setNewTodo} addTodo={addTodo} />
       <Table todos={filteredTodos} removeTodo={removeTodo} />
     </div>
-  );
-};
+  )
+}
 
-export default ToDoContainer;
+export default ToDoContainer
