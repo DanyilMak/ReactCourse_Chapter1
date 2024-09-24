@@ -1,24 +1,19 @@
-import { useState, useEffect } from "react";
-import Search from "./Search";
-import Add from "./Add";
-import Table from "./Table";
+import { useState } from 'react';
+import Search from './Search';
+import Add from './Add';
+import Table from './Table';
+import useGetAllToDo from '../hooks/useGetAllToDo';
 
 const ToDoContainer = () => {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
-      .then((response) => response.json())
-      .then((json) => setTodos(json));
-  }, []);
+  const { data: todos, isLoading } = useGetAllToDo(); // Використання кастомного хука
+  const [newTodo, setNewTodo] = useState('');
+  const [search, setSearch] = useState('');
 
   const addTodo = () => {
-    if (newTodo.trim() === "") return;
+    if (newTodo.trim() === '') return;
     const newId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 1;
     setTodos([...todos, { id: newId, title: newTodo }]);
-    setNewTodo("");
+    setNewTodo('');
   };
 
   const removeTodo = (id) => {
@@ -28,6 +23,10 @@ const ToDoContainer = () => {
   const filteredTodos = todos.filter((todo) =>
     todo.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
