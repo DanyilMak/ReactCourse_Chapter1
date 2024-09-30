@@ -1,27 +1,32 @@
 const Loader = ({ isLoading, children }) => {
-  if (isLoading) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}
-      >
+  return (
+    <>
+      {isLoading && (
         <div
           style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+            position: 'absolute',
+            width: '100%',
+            zIndex: 10,
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
           }}
         >
-          Loading...
+          <div
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+            }}
+          >
+            Loading...
+          </div>
         </div>
-      </div>
-    )
-  }
-
-  return children
+      )}
+      <div style={{ display: isLoading ? 'none' : 'block' }}>{children}</div>
+    </>
+  )
 }
 
 export default Loader
