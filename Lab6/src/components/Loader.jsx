@@ -8,10 +8,11 @@ const Loader = ({ isLoading, children }) => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100vh',
-            position: 'absolute',
+            position: 'fixed',
             width: '100%',
+            top: 0,
+            left: 0,
             zIndex: 10,
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
           }}
         >
           <div
